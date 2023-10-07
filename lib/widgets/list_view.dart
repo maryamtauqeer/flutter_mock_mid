@@ -63,11 +63,17 @@ class _HomePageState extends State<HomePage> {
                               builder: (BuildContext context) {
                                 return Wrap(
                                   children: <Widget>[
-                                    Container(
-                                      color: Colors.white,
-                                      child: ProductDetailsBottomSheet(
-                                          product:
-                                              item), // Use the same description widget
+                                    Material(
+                                      color: Colors.transparent,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            20.0), // Adjust the border radius as needed
+                                        child: Container(
+                                          color: Colors.white,
+                                          child: ProductDetailsBottomSheet(
+                                              product: item),
+                                        ),
+                                      ),
                                     ),
                                   ],
                                 );
