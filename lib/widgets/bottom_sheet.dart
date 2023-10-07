@@ -9,7 +9,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(20.0),
+      // margin: const EdgeInsets.all(20.0),
       color: Colors.white,
       child: description(product),
     );
