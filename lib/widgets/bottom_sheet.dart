@@ -9,7 +9,6 @@ class ProductDetailsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      // margin: const EdgeInsets.all(20.0),
       color: Colors.white,
       child: description(product),
     );
@@ -38,7 +37,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
                   child: ListTile(
                     tileColor: Colors.white,
                     title: Text(obj.name ?? ''),
-                    subtitle: Text(obj.description ?? ''),
+                    subtitle: Text(obj.description?.trim() ?? ''),
                   ),
                 ),
               ),
