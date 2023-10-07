@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mock_mid/models/model.dart';
+import 'package:flutter_mock_mid/widgets/bottom_sheet.dart';
 import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
@@ -44,13 +45,39 @@ class _HomePageState extends State<HomePage> {
                 future: fetchProducts(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
+                    // return ListView.builder(
+                    //     itemCount: snapshot.data?.length,
+                    //     itemBuilder: (contxt, i) {
+                    //       var item = snapshot.data![i];
+                    //       return productItem(item);
+                    //     });
                     return ListView.builder(
-                        itemCount: snapshot.data?.length,
-                        itemBuilder: (contxt, i) {
-                          var item = snapshot.data![i];
-                          // return Text(item.name ?? '');
-                          return productItem(item);
-                        });
+                      itemCount: snapshot.data?.length,
+                      itemBuilder: (contxt, i) {
+                        var item = snapshot.data![i];
+                        return GestureDetector(
+                          onTap: () {
+                            showModalBottomSheet<void>(
+                              context: context,
+                              // isScrollControlled: true,
+                              builder: (BuildContext context) {
+                                return Wrap(
+                                  children: <Widget>[
+                                    Container(
+                                      color: Colors.white,
+                                      child: ProductDetailsBottomSheet(
+                                          product:
+                                              item), // Use the same description widget
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: productListItem(item),
+                        );
+                      },
+                    );
                   } else if (snapshot.hasError) {
                     return const Text("Error");
                   }
@@ -59,15 +86,24 @@ class _HomePageState extends State<HomePage> {
                 })));
   }
 
-  Widget productItem(APIDataModel obj) {
+  Widget productListItem(APIDataModel obj) {
     return Card(
         child: ListTile(
-      leading: Image.network(obj.imageLink ?? ''),
+      tileColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+            BorderRadius.circular(8.0), // Adjust the border radius as needed
+      ),
+      leading: Image.network(
+        obj.imageLink ?? '',
+        fit: BoxFit.cover,
+      ),
       title: Text(obj.name ?? ''),
       trailing: Text(
         '\$${obj.price ?? ''}',
         style: const TextStyle(fontSize: 15),
       ),
+      contentPadding: const EdgeInsets.all(15.0),
     ));
   }
 }
