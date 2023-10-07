@@ -57,7 +57,7 @@ class ProductDetailsBottomSheet extends StatelessWidget {
               ),
               Expanded(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text('Price: \$${obj.price ?? ''}'),
                     Text('Rating: ${obj.rating ?? ''}'),
